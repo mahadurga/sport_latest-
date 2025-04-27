@@ -1,0 +1,260 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="card bg-dark mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="fs-4 mb-0">
+                        <i class="bi bi-trophy me-2"></i>Analysis Results
+                    </h2>
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-arrow-left me-1"></i>New Analysis
+                    </a>
+                </div>
+
+                <div id="sync-error" style="display: none; position: fixed; top: 10px; right: 10px; background: rgba(255,0,0,0.7); color: white; padding: 5px; border-radius: 3px;">
+                    Syncing audio...
+                </div>
+
+                <div class="card-body">
+                    <!-- Video player with generated commentary -->
+                    <h3 class="h5 mb-3">{{ video.original_name }}</h3>
+                    <div class="video-player-container mb-4">
+                        <div class="video-container">
+                            <video id="results-video" controls>
+                                <source src="{{ url_for('static', filename='results/processed_' + video.unique_id + '.mp4') }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+
+                            <!-- Hidden audio element -->
+                            <audio id="commentary-audio" preload="auto">
+                                <source src="{{ url_for('static', filename='results/commentary_' + video.unique_id + '.mp3') }}" type="audio/mpeg">
+                            </audio>
+                        </div>
+
+                        <div class="controls mt-3">
+                            <button id="play-video" class="btn btn-primary">Play</button>
+                            <button id="pause-video" class="btn btn-secondary">Pause</button>
+                            <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+                        </div>
+
+                        <!-- Video format debug message -->
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                Video file path: {{ results.processed_video.replace('./static/', '') }}
+                            </small>
+                        </div>
+
+                        <!-- Simple progress bar for visualization only -->
+                        <div class="mt-3">
+                            <h5 class="h6 mb-2">Video Timeline</h5>
+                            <div class="progress mb-2" style="height: 8px;">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <span class="badge bg-info">Boundaries</span>
+                                    <span class="badge bg-danger">Wickets</span>
+                                    <span class="badge bg-success">Shots</span>
+                                </div>
+                                <button id="events-button" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-list-ul"></i> Jump to Events
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Commentary audio player -->
+                    <div class="commentary-container">
+                        <h4 class="h6 mb-3">
+                            <i class="bi bi-mic-fill me-2"></i>Generated Commentary
+                        </h4>
+                        <div id="commentary-text" class="commentary-text mb-3">
+                            {{ results.commentary }}
+                        </div>
+
+                        <!-- Commentary controls -->
+                        <div class="d-flex justify-content-center">
+                            <button id="play-commentary" class="btn btn-success btn-lg">
+                                <i class="bi bi-play-fill"></i> Play Commentary
+                            </button>
+                        </div>
+
+                        <div class="mt-3 mb-2">
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                Click the button above to play the commentary using your browser's text-to-speech capability.
+                                The commentary will be highlighted as it's being read.
+                            </div>
+                            <div id="sync-error" class="alert alert-warning d-none">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                Video and audio synchronization issue detected. Attempting to resync...
+                            </div>
+                            <div id="sync-error" class="alert alert-warning d-none">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                Video and audio synchronization issue detected. Attempting to resync...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detected Events Section -->
+            <div class="card bg-dark mb-4">
+                <div class="card-header">
+                    <h2 class="fs-4 mb-0">
+                        <i class="bi bi-list-check me-2"></i>Detected Events
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div id="cricket-events" class="cricket-events-container">
+                        <div class="spinner-with-text">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="spinner-text">Loading detected events...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Details Section -->
+            <div class="card bg-dark">
+                <div class="card-header">
+                    <h2 class="fs-4 mb-0">
+                        <i class="bi bi-graph-up me-2"></i>Technical Analysis
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h3 class="h5 mb-3">Shot Distribution</h3>
+                            <ul class="list-group list-group-flush">
+                                {% set shot_counts = {} %}
+                                {% for event in results.events %}
+                                    {% if event.type == 'shot_played' and event.subtype != 'generic' %}
+                                        {% if event.subtype in shot_counts %}
+                                            {% set _ = shot_counts.update({event.subtype: shot_counts[event.subtype] + 1}) %}
+                                        {% else %}
+                                            {% set _ = shot_counts.update({event.subtype: 1}) %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if shot_counts %}
+                                    {% for shot_type, count in shot_counts.items() %}
+                                        <li class="list-group-item bg-transparent border-bottom py-2 d-flex justify-content-between align-items-center">
+                                            <span>
+                                                <i class="bi bi-check-circle-fill me-2 text-success"></i>{{ shot_type|capitalize }}
+                                            </span>
+                                            <span class="badge bg-primary rounded-pill">{{ count }}</span>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li class="list-group-item bg-transparent border-bottom py-2">
+                                        <i class="bi bi-info-circle me-2 text-info"></i>No specific shot types detected
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3 class="h5 mb-3">Match Events</h3>
+                            <ul class="list-group list-group-flush">
+                                {% set boundary_count = [0, 0] %}  <!-- [fours, sixes] -->
+                                {% set wicket_count = 0 %}
+
+                                {% for event in results.events %}
+                                    {% if event.type == 'boundary' %}
+                                        {% if event.subtype == 'four' %}
+                                            {% set boundary_count = [boundary_count[0] + 1, boundary_count[1]] %}
+                                        {% elif event.subtype == 'six' %}
+                                            {% set boundary_count = [boundary_count[0], boundary_count[1] + 1] %}
+                                        {% endif %}
+                                    {% elif event.type == 'wicket' %}
+                                        {% set wicket_count = wicket_count + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                <li class="list-group-item bg-transparent border-bottom py-2 d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="bi bi-4-circle-fill me-2 text-info"></i>Boundaries (4s)
+                                    </span>
+                                    <span class="badge bg-info rounded-pill">{{ boundary_count[0] }}</span>
+                                </li>
+                                <li class="list-group-item bg-transparent border-bottom py-2 d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="bi bi-6-circle-fill me-2 text-warning"></i>Boundaries (6s)
+                                    </span>
+                                    <span class="badge bg-warning text-dark rounded-pill">{{ boundary_count[1] }}</span>
+                                </li>
+                                <li class="list-group-item bg-transparent border-bottom py-2 d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="bi bi-x-circle-fill me-2 text-danger"></i>Wickets
+                                    </span>
+                                    <span class="badge bg-danger rounded-pill">{{ wicket_count }}</span>
+                                </li>
+                                <li class="list-group-item bg-transparent py-2 d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <i class="bi bi-calendar-event me-2 text-primary"></i>Total Events Detected
+                                    </span>
+                                    <span class="badge bg-primary rounded-pill">{{ results.events|length }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="d-flex justify-content-center mt-4">
+                        <a href="{{ url_for('static', filename=results.processed_video.replace('./static/', '')) }}" download class="btn btn-primary me-3">
+                            <i class="bi bi-download me-2"></i>Download Video
+                        </a>
+                        <a href="{{ url_for('static', filename=results.commentary_audio.replace('./static/', '')) }}" download class="btn btn-outline-secondary">
+                            <i class="bi bi-file-earmark-music me-2"></i>Download Commentary
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/speech-synthesizer.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('results-video');
+            const audio = document.getElementById('commentary-audio');
+            const playBtn = document.getElementById('play-video');
+            const pauseBtn = document.getElementById('pause-video');
+            const volumeControl = document.getElementById('volume');
+
+            // Sync controls
+            playBtn.addEventListener('click', () => {
+                Promise.all([video.play(), audio.play()]);
+            });
+
+            pauseBtn.addEventListener('click', () => {
+                video.pause();
+                audio.pause();
+            });
+
+            // Sync timing
+            video.addEventListener('seeked', () => {
+                audio.currentTime = video.currentTime;
+            });
+
+            // Volume control (commentary only)
+            volumeControl.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+
+            // Handle video end
+            video.addEventListener('ended', () => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        });
+    </script>
+{% endblock %}

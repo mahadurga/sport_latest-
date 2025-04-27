@@ -1,0 +1,39 @@
+modules = ["python-3.12", "nodejs-20", "web"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["ffmpeg-full", "glibcLocales", "imagemagickBig", "libGL", "libGLU"]
+
+[workflows]
+runButton = "Run App"
+
+[[workflows.workflow]]
+name = "Train Classifier"
+author = 41906188
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python train_classifier.py"
+
+[[workflows.workflow]]
+name = "Run App"
+author = 41906188
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd Ai-commentary-Generator && python app.py"
+
+[[workflows.workflow]]
+name = "Align Media"
+author = 41906188
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python align_video.py"
+
+[[ports]]
+localPort = 5000
+externalPort = 80

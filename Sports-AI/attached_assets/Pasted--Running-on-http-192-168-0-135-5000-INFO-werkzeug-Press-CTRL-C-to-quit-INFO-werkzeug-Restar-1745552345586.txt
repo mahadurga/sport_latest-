@@ -1,0 +1,100 @@
+ * Running on http://192.168.0.135:5000
+INFO:werkzeug:Press CTRL+C to quit
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 522-457-498
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:04:15] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:04:16] "GET /static/css/styles.css HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:04:16] "GET /static/assets/cricket-field.svg HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:04:16] "GET /static/js/app.js HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:04:18] "GET /favicon.ico HTTP/1.1" 404 -
+WARNING: ffmpeg not found. The downloaded format may not be the best available. Installing ffmpeg is strongly recommended: https://github.com/yt-dlp/yt-dlp#dependencies 
+WARNING: ffmpeg not found. The downloaded format may not be the best available. Installing ffmpeg is strongly recommended: https://github.com/yt-dlp/yt-dlp#dependencies 
+[youtube] Extracting URL: https://youtube.com/shorts/dqQX3URGRCo?si=I0yay2HKEYt-xI0- 
+[youtube] dqQX3URGRCo: Downloading webpage 
+[youtube] Extracting URL: https://youtube.com/shorts/dqQX3URGRCo?si=I0yay2HKEYt-xI0- 
+[youtube] dqQX3URGRCo: Downloading webpage 
+[youtube] dqQX3URGRCo: Downloading tv client config 
+[youtube] dqQX3URGRCo: Downloading player 22f02d3d-main 
+[youtube] dqQX3URGRCo: Downloading tv client config 
+[youtube] dqQX3URGRCo: Downloading tv player API JSON 
+[youtube] dqQX3URGRCo: Downloading player 22f02d3d-main 
+[youtube] dqQX3URGRCo: Downloading ios player API JSON 
+[youtube] dqQX3URGRCo: Downloading tv player API JSON 
+[youtube] dqQX3URGRCo: Downloading ios player API JSON 
+[youtube] dqQX3URGRCo: Downloading m3u8 information 
+[info] dqQX3URGRCo: Downloading 1 format(s): 18 
+[youtube] dqQX3URGRCo: Downloading m3u8 information 
+[download] Destination: static\uploads\youtube_8ace7c24-9bac-4610-9e72-52bc1d9ca590.mp4 
+[download] 100% of  583.12KiB in 00:00:02 at 234.93KiB/s 
+[info] dqQX3URGRCo: Downloading 1 format(s): 18 
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:37] "POST /youtube_link HTTP/1.1" 302 -
+[download] Destination: static\uploads\youtube_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp4 
+[download] 100% of  583.12KiB in 00:00:01 at 572.39KiB/s
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:38] "POST /youtube_link HTTP/1.1" 302 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:38] "GET /process HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:38] "GET /static/css/styles.css HTTP/1.1" 304 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:38] "GET /static/js/app.js HTTP/1.1" 304 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:38] "GET /static/uploads/youtube_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp4 HTTP/1.1" 206 -
+DEBUG:app:Starting to process video: static\uploads\youtube_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp4
+INFO:utils.video_processor:Processing video: static\uploads\youtube_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp4
+WARNING:utils.shot_classification:Model not trained, falling back to template matching
+INFO:app:Converting commentary to speech: 137 characters
+INFO:utils.text_to_speech:Converting text to speech: That's good batting technique on display. The batsman takes guard. what a stroke! that's four runs a...
+DEBUG:gtts.tts:text: That's good batting technique on display. The batsman takes guard. what a stroke! that's four runs as the ball reaches the boundary rope.
+DEBUG:gtts.tts:tld: com
+DEBUG:gtts.tts:lang: en
+DEBUG:gtts.tts:slow: False
+DEBUG:gtts.tts:lang_check: True
+DEBUG:gtts.tts:pre_processor_funcs: [<function tone_marks at 0x000001C22BF25080>, <function end_of_line at 0x000001C22BF25B20>, <function abbreviations at 0x000001C22BF25D00>, <function word_sub at 0x000001C22BF25DA0>]
+DEBUG:gtts.tts:tokenizer_func: <bound method Tokenizer.run of re.compile('(?<=\\?).|(?<=!).|(?<=？).|(?<=！).|(?<!\\.[a-z])\\. |(?<!\\.[a-z]), |(?<!\\d):|¡|;|…|\\(|‥|，|،|\\\n|。|—|\\)|：|、|\\]|¿|\\[', re.IGNORECASE) from: [<function tone_marks at 0x000001C22BF25F80>, <function period_comma at 0x000001C22BF26020>, <function colon at 0x000001C22BF260C0>, <function other_punctuation at 0x000001C22BF26160>]>
+DEBUG:gtts.tts:timeout: None
+DEBUG:gtts.lang:langs: {'af': 'Afrikaans', 'am': 'Amharic', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bs': 'Bosnian', 'ca': 'Catalan', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'et': 'Estonian', 'eu': 'Basque', 'fi': 'Finnish', 'fr': 'French', 'fr-CA': 'French (Canada)', 'gl': 'Galician', 'gu': 'Gujarati', 'ha': 'Hausa', 'hi': 'Hindi', 'hr': 'Croatian', 'hu': 'Hungarian', 'id': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'iw': 'Hebrew', 'ja': 'Japanese', 'jw': 'Javanese', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'la': 'Latin', 'lt': 'Lithuanian', 'lv': 'Latvian', 'ml': 'Malayalam', 'mr': 'Marathi', 'ms': 'Malay', 'my': 'Myanmar (Burmese)', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'pa': 'Punjabi (Gurmukhi)', 'pl': 'Polish', 'pt': 'Portuguese (Brazil)', 'pt-PT': 'Portuguese (Portugal)', 'ro': 'Romanian', 'ru': 'Russian', 'si': 'Sinhala', 'sk': 'Slovak', 'sq': 'Albanian', 'sr': 'Serbian', 'su': 'Sundanese', 'sv': 'Swedish', 'sw': 'Swahili', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Filipino', 'tr': 'Turkish', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'yue': 'Cantonese', 'zh-CN': 'Chinese (Simplified)', 'zh-TW': 'Chinese (Mandarin/Taiwan)', 'zh': 'Chinese (Mandarin)'}
+DEBUG:gtts.tts:pre-processing: <function tone_marks at 0x000001C22BF25080>
+DEBUG:gtts.tts:pre-processing: <function end_of_line at 0x000001C22BF25B20>
+DEBUG:gtts.tts:pre-processing: <function abbreviations at 0x000001C22BF25D00>
+DEBUG:gtts.tts:pre-processing: <function word_sub at 0x000001C22BF25DA0>
+DEBUG:gtts.tts:tokenizing: <bound method Tokenizer.run of re.compile('(?<=\\?).|(?<=!).|(?<=？).|(?<=！).|(?<!\\.[a-z])\\. |(?<!\\.[a-z]), |(?<!\\d):|¡|;|…|\\(|‥|，|،|\\\n|。|—|\\)|：|、|\\]|¿|\\[', re.IGNORECASE) from: [<function tone_marks at 0x000001C22BF25F80>, <function period_comma at 0x000001C22BF26020>, <function colon at 0x000001C22BF260C0>, <function other_punctuation at 0x000001C22BF26160>]>
+DEBUG:gtts.tts:text_parts: ["That's good batting technique on display", 'The batsman takes guard', 'what a stroke!', "that's four runs as the ball reaches the boundary rope."]
+DEBUG:gtts.tts:text_parts: 4
+DEBUG:gtts.tts:data-0: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22That%27s%20good%20batting%20technique%20on%20display%5C%22%2C%5C%22en%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+DEBUG:gtts.tts:data-1: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22The%20batsman%20takes%20guard%5C%22%2C%5C%22en%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+DEBUG:gtts.tts:data-2: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22what%20a%20stroke%21%5C%22%2C%5C%22en%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&  
+DEBUG:gtts.tts:data-3: f.req=%5B%5B%5B%22jQ1olc%22%2C%22%5B%5C%22that%27s%20four%20runs%20as%20the%20ball%20reaches%20the%20boundary%20rope.%5C%22%2C%5C%22en%5C%22%2Cnull%2C%5C%22null%5C%22%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&
+DEBUG:gtts.tts:headers-0: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '182'}
+DEBUG:gtts.tts:url-0: https://translate.google.com/_/TranslateWebserverUi/data/batchexecute
+DEBUG:gtts.tts:status-0: 200
+DEBUG:gtts.tts:part-0 written to <_io.BufferedWriter name='static\\results\\commentary_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp3'>
+DEBUG:gtts.tts:part-0 created
+DEBUG:gtts.tts:headers-1: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '159'}
+DEBUG:gtts.tts:url-1: https://translate.google.com/_/TranslateWebserverUi/data/batchexecute
+DEBUG:gtts.tts:status-1: 200
+DEBUG:gtts.tts:part-1 written to <_io.BufferedWriter name='static\\results\\commentary_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp3'>
+DEBUG:gtts.tts:part-1 created
+DEBUG:gtts.tts:headers-2: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '150'}
+DEBUG:gtts.tts:url-2: https://translate.google.com/_/TranslateWebserverUi/data/batchexecute
+DEBUG:gtts.tts:status-2: 200
+DEBUG:gtts.tts:part-2 written to <_io.BufferedWriter name='static\\results\\commentary_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp3'>
+DEBUG:gtts.tts:part-2 created
+DEBUG:gtts.tts:headers-3: {'Referer': 'http://translate.google.com/', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36', 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8', 'Content-Length': '205'}
+DEBUG:gtts.tts:url-3: https://translate.google.com/_/TranslateWebserverUi/data/batchexecute
+DEBUG:gtts.tts:status-3: 200
+DEBUG:gtts.tts:part-3 written to <_io.BufferedWriter name='static\\results\\commentary_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp3'>
+DEBUG:gtts.tts:part-3 created
+DEBUG:gtts.tts:Saved to static\results\commentary_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp3
+INFO:utils.text_to_speech:Text-to-speech conversion completed. Saved to static\results\commentary_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp3
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:05:48] "POST /start_processing HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:06:10] "GET /results HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:06:10] "GET /static/js/speech-synthesizer.js HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:06:10] "GET /static/static\\results\\processed_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp4 HTTP/1.1" 404 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:06:10] "GET /static/css/styles.css HTTP/1.1" 304 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:06:10] "GET /api/events HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\durga\\Downloads\\Sports-AI\\Sports-AI\\Ai-commentary-Generator\\app.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 522-457-498
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:07:33] "GET /results HTTP/1.1" 200 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:07:33] "GET /static/static\\results\\processed_72b8a8f2-33ee-4190-a63c-efc65c6dec7d.mp4 HTTP/1.1" 404 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:07:34] "GET /static/css/styles.css HTTP/1.1" 304 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:07:34] "GET /static/js/speech-synthesizer.js HTTP/1.1" 304 -
+INFO:werkzeug:192.168.0.135 - - [25/Apr/2025 09:07:34] "GET /api/events HTTP/1.1" 200 -
